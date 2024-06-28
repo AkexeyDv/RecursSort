@@ -17,8 +17,13 @@ public class Main {
         //arrayListShort.add(2);
         arrayListShort.sort();
         System.out.println(arrayListShort.toString());
-        //arrayListShort.sort();
-        //System.out.println(arrayListShort.toString());
+        arrayListShort.delete(3);
+
+        System.out.println(arrayListShort.toString());
+        arrayListShort.add(2,0);
+        System.out.println(arrayListShort.toString());
+        System.out.println(arrayListShort.size());
+        arrayListShort.add(8,5);
 
     }
 

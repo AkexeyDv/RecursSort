@@ -11,6 +11,12 @@ public class ArrayListShort {
         lenActual = 0;
     }
 
+    public Integer[] toArray(){
+        Integer[] tmpArray=new Integer[lenActual];
+        System.arraycopy(arrayList,0,tmpArray,0,lenActual);
+        return tmpArray;
+    }
+
     public void add(Integer element) {
         if (lenActual == 0) {
             arrayList = new Integer[1];
@@ -23,6 +29,40 @@ public class ArrayListShort {
         if (lenActual == arrayList.length) {
             grow();
         }
+    }
+    public void add(int index,Integer element){
+        if(index<0||index>lenActual){
+            throw new ExceptionApp("Выход за диапазон коллекции");
+        }
+        if(index==lenActual){
+            throw new ExceptionApp("Для добавления элемента в конец коллекции используйте метод add(Integer element)");
+        }
+        Integer[] tmpArray=arrayList;
+        arrayList=new Integer[arrayList.length];
+        System.arraycopy(tmpArray,0,arrayList,0,index);
+        arrayList[index]=element;
+        System.arraycopy(tmpArray,index,arrayList,index+1,lenActual-index);
+        lenActual++;
+        if (lenActual == arrayList.length) {
+            grow();
+        }
+
+    }
+    public Integer size(){
+        return lenActual;
+    }
+
+
+    public void delete(int index){
+        if(index<0||index>lenActual-1){
+            throw new ExceptionApp("Выход за диапазон коллекции");
+        }
+        Integer[] tmpArray=arrayList;
+        arrayList=new Integer[arrayList.length-1];
+        System.arraycopy(tmpArray,0,arrayList,0,index);
+        System.arraycopy(tmpArray,index+1,arrayList,index,arrayList.length-index-1);
+        lenActual--;
+
     }
     public void sort(){
         Integer[] tmpArray=new Integer[lenActual];
@@ -59,14 +99,11 @@ public class ArrayListShort {
             rightArray=new Integer[rightIdx];
             System.arraycopy(tmpLeft,0,leftArray,0,leftIdx);
             System.arraycopy(tmpRight,0,rightArray,0,rightIdx);
-            System.out.println(Arrays.toString(leftArray)+"-left");
-            System.out.println(Arrays.toString(rightArray)+"-right");
             sorting(leftArray);
             sorting(rightArray);
             System.arraycopy(leftArray,0,arraySort,0,leftArray.length);
             arraySort[leftArray.length]=separator;
             System.arraycopy(rightArray,0,arraySort,leftArray.length+1,rightArray.length);
-            System.out.println(Arrays.toString(arraySort));
         }
         return arraySort;
 
